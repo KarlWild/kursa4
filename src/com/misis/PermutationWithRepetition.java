@@ -1,45 +1,46 @@
 package com.misis;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
-class PermutationsWithRepetition {
-    private Object[] source;
-    private int variationLength;
+class PermutationWithRepetition {
+    static int num = 1; // номер размещения
 
-    public PermutationsWithRepetition(Object[] source, int variationLength) {
-        this.source = source;
-        this.variationLength = variationLength;
+
+    public static boolean NextSet(int n, int m,int ...a){
+        int j = m - 1;
+        while (j >= 0 && a[j] == n) j--;
+        if (j < 0) return false;
+        if (a[j] >= n)
+            j--;
+        a[j]++;
+        if (j == m - 1) return true;
+        for (int k = j + 1; k < m; k++)
+            a[k] = 1;
+        return true;
     }
 
-    public Object[][] getVariations() {
-        int srcLength = source.length;
-        int permutations = (int) Math.pow(srcLength, variationLength);
-
-        Object[][] table = new Object[permutations][variationLength];
-
-        for (int i = 0; i < variationLength; i++) {
-            int t2 = (int) Math.pow(srcLength, i);
-            for (int p1 = 0; p1 < permutations;) {
-                for (int al = 0; al < srcLength; al++) {
-                    for (int p2 = 0; p2 < t2; p2++) {
-                        table[p1][i] = source[al];
-                        p1++;
-                    }
-                }
-            }
-        }
-        return table;
+    public static void Print(int n, int ...a)  // вывод размещения
+    {
+        System.out.print(num++ +": ");
+        for (int i = 0; i < n; i++)
+            System.out.print(a[i] + " ");//cout << a[i] << " ";
+        System.out.println();
     }
 
     public static void main(String[] args) {
-        PermutationsWithRepetition gen = new PermutationsWithRepetition(
-                new Integer[]{1, 2, 3, 4},
-                3);
-
-        Object[][] variations = gen.getVariations();
-
-        for (Object[] s : variations) {
-            System.out.println(Arrays.toString(s));
-        }
+        int n, m;
+        int[] a;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("N = ");
+        n = sc.nextInt();
+        System.out.print("M = ");
+        m = sc.nextInt();
+        int h = n > m ? n : m; // размер массива а выбирается как max(n,m)
+        a = new int[h];
+        for (int i = 0; i < h; i++)
+            a[i] = 1;
+        Print(m, a);
+        while (NextSet(n, m, a))
+            Print(m, a);
     }
 }
