@@ -23,7 +23,7 @@ class PermutationWithRepetition {
     {
         System.out.print(num++ +": ");
         for (int i = 0; i < n; i++)
-            System.out.print(a[i] + " ");//cout << a[i] << " ";
+            System.out.print(a[i] + " ");
         System.out.println();
     }
 
@@ -35,7 +35,7 @@ class PermutationWithRepetition {
         n = sc.nextInt();
         System.out.print("M = ");
         m = sc.nextInt();
-        int h = n > m ? n : m; // размер массива а выбирается как max(n,m)
+        int h = Math.max(n, m); // размер массива а выбирается как max(n,m)
         a = new int[h];
         for (int i = 0; i < h; i++)
             a[i] = 1;
